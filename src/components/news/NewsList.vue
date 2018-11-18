@@ -1,18 +1,18 @@
 <template>
-    <ul class="mui-table-view">
-        <li class="mui-table-view-cell mui-media" v-for="item in newslist" :key="item.$index">
-            <a href="javascript:;">
-                <img class="mui-media-object mui-pull-left" src="">
-                <div class="mui-media-body">
-                    <h1></h1>
-                    <p class="mui-ellipsis">
-                        <span>发表时间：2018-11-11 00:00:00</span>
-                        <span>点击：0次</span>
-                    </p>
-                </div>
-            </a>
-        </li>
-    </ul>
+  <ul class="mui-table-view">
+    <li class="mui-table-view-cell mui-media" v-for="item in newslist" :key="item.$index">
+      <a href="javascript:;">
+        <img class="mui-media-object mui-pull-left">
+        <div class="mui-media-body">
+          <h1>{{ item[0].title }}</h1>
+          <p class="mui-ellipsis">
+            <span>发表时间：{{item[0].ptime}}</span>
+            <span>点击：{{item[0].tcount}}次</span>
+          </p>
+        </div>
+      </a>
+    </li>
+  </ul>
 </template>
 
 <script>
