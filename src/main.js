@@ -20,6 +20,12 @@ Vue.component(Button.name, Button)
 
 import router from './router.js'
 
+import moment from 'moment'
+Vue.filter('dataFormat', function (dataStr, pattern = 'YYYY-MM-DD HH:mm:ss') {
+    return moment(dataStr).format(pattern);
+});
+
+
 var vm = new Vue({
     el: '#app',
     render: c => c(app),
