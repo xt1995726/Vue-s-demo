@@ -1,19 +1,19 @@
 <template>
-    <div class="cmt-comtainer">
-        <h3>发表评论</h3>
-        <hr>
-        <textarea placeholder="请输入评论（不超过120字）" maxlength="120"></textarea>
-        <mt-button type="primary" size="large">发表评论</mt-button>
-        <div class="cmt-list">
-            <div class="cmt-item" v-for="(item, index) in comments" :key="index">
-                <div
-                    class="cmt-title"
-                >第{{index + 1}}楼&nbsp;&nbsp;用户：{{item.user.username}}&nbsp;&nbsp;发表时间：{{item.ctime | dataFormat}}</div>
-                <div class="cmt-body">{{item.content}}</div>
-            </div>
-        </div>
-        <mt-button type="danger" size="large" plain @click="getMore">加载更多</mt-button>
+  <div class="cmt-comtainer">
+    <h3>发表评论</h3>
+    <hr>
+    <textarea placeholder="请输入评论（不超过120字）" maxlength="120" v-model="msg"></textarea>
+    <mt-button type="primary" size="large" @click="postComment">发表评论</mt-button>
+    <div class="cmt-list">
+      <div class="cmt-item" v-for="(item, index) in comments" :key="index">
+        <div
+          class="cmt-title"
+        >第{{index + 1}}楼&nbsp;&nbsp;用户：{{item.user.username}}&nbsp;&nbsp;发表时间：{{item.ctime | dataFormat}}</div>
+        <div class="cmt-body">{{item.content}}</div>
+      </div>
     </div>
+    <mt-button type="danger" size="large" plain @click="getMore">加载更多</mt-button>
+  </div>
 </template>
 
 <script>
@@ -23,7 +23,8 @@ export default {
   data() {
     return {
       pageIndex: 1,
-      comments: []
+      comments: [],
+      msg: ""
     };
   },
   created() {
@@ -48,6 +49,18 @@ export default {
     getMore() {
       this.pageIndex++;
       this.getComments();
+    },
+    postComment() {
+      if (this.msg.trim().length === 0) {
+        return Toast("comments cannot be none");
+      }
+      var cmt = {
+        user:{username: "xietian"},
+        ctime: Date.now,
+        content: this.msg.trim()
+      };
+      this.comments.unshift(cmt);
+      this.msg = "";
     }
   }
 };
