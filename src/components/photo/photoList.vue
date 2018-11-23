@@ -1,16 +1,21 @@
 <template>
-    <div>
-        <h3>Photo</h3>
-        <ul class="photo-list">
-            <li v-for="(item, index) in list" :key="index">
-                <img v-lazy="item.url">
-                <div class="info">
-                    <h1 class="info-title">{{item.type}}</h1>
-                    <div class="info-body">{{item.publishedAt | dataFormat}}</div>
-                </div>
-            </li>
-        </ul>
-    </div>
+  <div>
+    <h3>Photo</h3>
+    <ul class="photo-list">
+      <router-link
+        v-for="(item, index) in list"
+        :key="index"
+        :to="'/home/photoinfo/' + (index+1) "
+        tag="li"
+      >
+        <img v-lazy="item.url">
+        <div class="info">
+          <h1 class="info-title">{{item.type}}</h1>
+          <div class="info-body">{{item.publishedAt | dataFormat}}</div>
+        </div>
+      </router-link>
+    </ul>
+  </div>
 </template>
 
 <script>
