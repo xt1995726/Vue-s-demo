@@ -10,6 +10,8 @@ import NewsInfo from "./components/news/NewsInfo.vue";
 
 import PhotoList from "./components/photo/photoList.vue"
 
+import GoodsList from './components/goods/GoodsList.vue'
+
 // 3. 创建路由对象
 var router = new VueRouter({
   routes: [
@@ -21,6 +23,7 @@ var router = new VueRouter({
     { path: "/home/newslist", component: NewsList },
     { path: "/home/newsinfo/:index", component: NewsInfo },
     { path: "/home/photoList", component: PhotoList },
+    { path: "/home/goodslist", component: GoodsList },
   ],
   linkActiveClass: "mui-active"
 });
