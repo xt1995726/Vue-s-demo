@@ -4,9 +4,11 @@ import Vue from 'vue'
 import app from './App.vue'
 import VueRouter from 'vue-router'
 import VueResouce from 'vue-resource'
+import VuePreview from 'vue-preview'
 
 Vue.use(VueRouter)
 Vue.use(VueResouce)
+Vue.use(VuePreview)
 
 import './lib/mui/css/mui.min.css'
 import './lib/mui/css/icons-extra.css'
