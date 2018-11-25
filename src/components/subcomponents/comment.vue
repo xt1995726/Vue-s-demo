@@ -56,7 +56,7 @@ export default {
       }
       var cmt = {
         user:{username: "xietian"},
-        ctime: Date.now,
+        ctime: Date.now(),
         content: this.msg.trim()
       };
       this.comments.unshift(cmt);
