@@ -1,6 +1,6 @@
 <template>
     <div class="goods-list">
-        <div class="goods-item" v-for="(item, index) in goodslist" :key="index">
+        <div class="goods-item" v-for="(item, index) in goodslist" :key="index" @click="goDetail">
             <img :src="item.thumb" alt="">
             <h1 class="title">{{item.name}}</h1>
             <div class="info">
@@ -40,6 +40,9 @@ export default {
     },
     getMore() {
       this.more = "没有更多啦。";
+    },
+    goDetail(){
+      this.$router.push({name:'goodsinfo'});
     }
   }
 };
