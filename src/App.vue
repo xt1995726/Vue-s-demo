@@ -31,6 +31,11 @@
 </template>
 
 <script>
+import mui from './lib/mui/js/mui.min.js';
+
+mui('body').on('tap','a',function(){document.location.href=this.href;});
+mui('body').on('click','a',function(){document.location.href=this.href;});
+
 </script>
 
 
@@ -39,6 +44,7 @@
   padding-top: 40px;
   padding-bottom: 50px;
   overflow-x: hidden;
+  touch-action: pan-y;
 }
 
 .v-enter {

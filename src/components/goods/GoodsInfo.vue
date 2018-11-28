@@ -12,31 +12,54 @@
     <div class="mui-card">
       <div class="mui-card-header">页眉</div>
       <div class="mui-card-content">
-        <div class="mui-card-content-inner">包含页眉页脚的卡片，页眉常用来显示面板标题，页脚用来显示额外信息或支持的操作（比如点赞、评论等）</div>
+        <div class="mui-card-content-inner">
+          <p class="price">
+            市场价：
+            <del>$2399</del>&nbsp;&nbsp;销售价：
+            <span class="now_price">$1999</span>
+          </p>
+          <p>购买数量：
+            <numbox></numbox>
+          </p>
+          <p>
+            <mt-button type="primary" size="small">立即购买</mt-button>
+            <mt-button type="danger" size="small">加入购物车</mt-button>
+          </p>
+        </div>
       </div>
     </div>
     <!-- 商品参数区域 -->
     <div class="mui-card">
       <div class="mui-card-header">页眉</div>
       <div class="mui-card-content">
-        <div class="mui-card-content-inner">包含页眉页脚的卡片，页眉常用来显示面板标题，页脚用来显示额外信息或支持的操作（比如点赞、评论等）</div>
+        <div class="mui-card-content-inner">
+          <p>商品货号：</p>
+          <p>库存情况：</p>
+          <p>商家情况：</p>
+        </div>
       </div>
-      <div class="mui-card-footer">页脚</div>
+      <div class="mui-card-footer">
+        <mt-button type="primary" size="large" plain>图文介绍</mt-button>
+        <mt-button type="danger" size="large" plain>商品评论</mt-button>
+      </div>
     </div>
   </div>
 </template>
 <script>
 import swiper from '../subcomponents/swiper.vue';
+import numbox from '../subcomponents/goodsinfo_numbox.vue'
 
 export default {
   data() {
     return {
       lunbotu: [],
       ch_name: this.$route.params.ch_name,
+      goodsinfo: [],
     }
   },
   created() {
     this.getLunbotu();
+    this.getGoodsInfo();
   },
   methods: {
     getLunbotu() {
@@ -47,19 +70,43 @@ export default {
           });
 
           this.lunbotu = res.body.result.songlist;
-          console.log(this.lunbotu);
+          // console.log(this.lunbotu);
         }
       });
+    },
+    getGoodsInfo() {
+      this.$http.get('https://api.apiopen.top/musicBroadcastingDetails?channelname=' + this.ch_name).then(res => {
+        if (res.body.code === 200) {
+          this.goodsinfo = res.body.result.songlist[0];
+          console.log(this.goodsinfo);
+        }
+      });
+
     }
   },
   components: {
     swiper,
+    numbox,
   }
 }
 </script>
 <style lang="scss" scoped>
-.goodsinfo-container{
-    background-color: #eee;
-    overflow: hidden;
+.goodsinfo-container {
+  background-color: #eee;
+  overflow: hidden;
+
+  .now_price {
+    color: red;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .mui-card-footer {
+    display: block;
+
+    button {
+      margin: 15px 0;
+    }
+  }
 }
 </style>
