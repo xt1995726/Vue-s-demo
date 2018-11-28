@@ -1,29 +1,34 @@
 <template>
-    <div class="goods-list">
-        <div class="goods-item" v-for="(item, index) in goodslist" :key="index" @click="goDetail">
-            <img :src="item.thumb" alt="">
-            <h1 class="title">{{item.name}}</h1>
-            <div class="info">
-                <p class="price">
-                    <span class="now">￥{{item.channelid}}</span>
-                    <span class="old">￥{{item.value}}</span>
-                </p>
-                <p class="sell">
-                    <span>热卖中</span>
-                    <span>剩{{item.value}}件</span>
-                </p>
-            </div>
-        </div>
-        <mt-button type="danger" size="large" @click="getMore">加载更多</mt-button>
-        {{more}}
+  <div class="goods-list">
+    <div
+      class="goods-item"
+      v-for="(item, index) in goodslist"
+      :key="index"
+      @click="goDetail(item.ch_name)"
+    >
+      <img :src="item.thumb" alt>
+      <h1 class="title">{{item.name}}</h1>
+      <div class="info">
+        <p class="price">
+          <span class="now">￥{{item.channelid}}</span>
+          <span class="old">￥{{item.value}}</span>
+        </p>
+        <p class="sell">
+          <span>热卖中</span>
+          <span>剩{{item.value}}件</span>
+        </p>
+      </div>
     </div>
+    <mt-button type="danger" size="large" @click="getMore">加载更多</mt-button>
+    {{more}}
+  </div>
 </template>
 <script>
 export default {
   data() {
     return {
       goodslist: [],
-      more: ""
+      more: "",
     };
   },
   created() {
@@ -41,8 +46,8 @@ export default {
     getMore() {
       this.more = "没有更多啦。";
     },
-    goDetail(){
-      this.$router.push({name:'goodsinfo'});
+    goDetail(ch_name) {
+      this.$router.push({ name: 'goodsinfo', params: { ch_name } });
     }
   }
 };

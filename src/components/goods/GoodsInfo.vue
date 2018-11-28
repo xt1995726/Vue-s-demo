@@ -3,7 +3,9 @@
     <!-- 商品轮播区域 -->
     <div class="mui-card">
       <div class="mui-card-content">
-        <div class="mui-card-content-inner">这是一个最简单的卡片视图控件；卡片视图常用来显示完整独立的一段信息，比如一篇文章的预览图、作者信息、点赞数量等</div>
+        <div class="mui-card-content-inner">
+          <swiper :lunboList="lunbotu" :isfull="false"></swiper>
+        </div>
       </div>
     </div>
     <!-- 商品购买区域 -->
@@ -24,7 +26,36 @@
   </div>
 </template>
 <script>
-    
+import swiper from '../subcomponents/swiper.vue';
+
+export default {
+  data() {
+    return {
+      lunbotu: [],
+      ch_name: this.$route.params.ch_name,
+    }
+  },
+  created() {
+    this.getLunbotu();
+  },
+  methods: {
+    getLunbotu() {
+      this.$http.get('https://api.apiopen.top/musicBroadcastingDetails?channelname=' + this.ch_name).then(res => {
+        if (res.body.code === 200) {
+          res.body.result.songlist.forEach(item => {
+            item.url = item.thumb;
+          });
+
+          this.lunbotu = res.body.result.songlist;
+          console.log(this.lunbotu);
+        }
+      });
+    }
+  },
+  components: {
+    swiper,
+  }
+}
 </script>
 <style lang="scss" scoped>
 .goodsinfo-container{
