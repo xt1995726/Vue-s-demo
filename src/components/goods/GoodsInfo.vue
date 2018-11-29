@@ -1,5 +1,8 @@
 <template>
   <div class="goodsinfo-container">
+    <transition>
+      <div class="ball" v-show="ballFlag"></div>
+    </transition>
     <!-- 商品轮播区域 -->
     <div class="mui-card">
       <div class="mui-card-content">
@@ -10,37 +13,37 @@
     </div>
     <!-- 商品购买区域 -->
     <div class="mui-card">
-      <div class="mui-card-header">页眉</div>
+      <div class="mui-card-header">{{goodsinfo.title}}</div>
       <div class="mui-card-content">
         <div class="mui-card-content-inner">
           <p class="price">
             市场价：
-            <del>$2399</del>&nbsp;&nbsp;销售价：
-            <span class="now_price">$1999</span>
+            <del>${{goodsinfo.songid}}</del>&nbsp;&nbsp;销售价：
+            <span class="now_price">${{goodsinfo.artist_id}}</span>
           </p>
           <p>购买数量：
             <numbox></numbox>
           </p>
           <p>
             <mt-button type="primary" size="small">立即购买</mt-button>
-            <mt-button type="danger" size="small">加入购物车</mt-button>
+            <mt-button type="danger" size="small" @click="addToShopCar">加入购物车</mt-button>
           </p>
         </div>
       </div>
     </div>
     <!-- 商品参数区域 -->
     <div class="mui-card">
-      <div class="mui-card-header">页眉</div>
+      <div class="mui-card-header">商品参数</div>
       <div class="mui-card-content">
         <div class="mui-card-content-inner">
-          <p>商品货号：</p>
-          <p>库存情况：</p>
-          <p>商家情况：</p>
+          <p>商品货号：{{goodsinfo.all_rate}}</p>
+          <p>库存情况：{{goodsinfo.songid}}件</p>
+          <p>商家情况：{{goodsinfo.artist}}</p>
         </div>
       </div>
       <div class="mui-card-footer">
-        <mt-button type="primary" size="large" plain>图文介绍</mt-button>
-        <mt-button type="danger" size="large" plain>商品评论</mt-button>
+        <mt-button type="primary" size="large" plain @click="goDesc(ch_name)">图文介绍</mt-button>
+        <mt-button type="danger" size="large" plain @click="goComment(ch_name)">商品评论</mt-button>
       </div>
     </div>
   </div>
@@ -55,6 +58,7 @@ export default {
       lunbotu: [],
       ch_name: this.$route.params.ch_name,
       goodsinfo: [],
+      ballFlag: false,
     }
   },
   created() {
@@ -81,7 +85,15 @@ export default {
           console.log(this.goodsinfo);
         }
       });
-
+    },
+    goDesc(ch_name) {
+      this.$router.push({ name: 'goodsdesc', params: { ch_name } });
+    },
+    goComment(ch_name) {
+      this.$router.push({ name: 'goodscomment', params: { ch_name } });
+    },
+    addToShopCar() {
+      this.ballFlag = !this.ballFlag;
     }
   },
   components: {
@@ -107,6 +119,16 @@ export default {
     button {
       margin: 15px 0;
     }
+  }
+  .ball{
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: red;
+    position: absolute;
+    z-index: 50;
+    top: 390px;
+    left: 150px;
   }
 }
 </style>
