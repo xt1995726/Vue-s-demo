@@ -1,7 +1,7 @@
 <template>
   <div class="goodsinfo-container">
-    <transition>
-      <div class="ball" v-show="ballFlag"></div>
+    <transition @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter">
+      <div class="ball" v-show="ballFlag" ref="ball"></div>
     </transition>
     <!-- 商品轮播区域 -->
     <div class="mui-card">
@@ -22,7 +22,7 @@
             <span class="now_price">${{goodsinfo.artist_id}}</span>
           </p>
           <p>购买数量：
-            <numbox></numbox>
+            <numbox @getcount="getSelectedCount" :max="goodsinfo.songid"></numbox>
           </p>
           <p>
             <mt-button type="primary" size="small">立即购买</mt-button>
@@ -59,6 +59,7 @@ export default {
       ch_name: this.$route.params.ch_name,
       goodsinfo: [],
       ballFlag: false,
+      selectedCount: 1
     }
   },
   created() {
@@ -94,6 +95,28 @@ export default {
     },
     addToShopCar() {
       this.ballFlag = !this.ballFlag;
+    },
+    beforeEnter(el) {
+      el.style.transform = "translate(0,0)";
+    },
+    enter(el, done) {
+      el.offsetWidth;
+
+      const ballPosition = this.$refs.ball.getBoundingClientRect();
+      const badgePosition = document.getElementById('badge').getBoundingClientRect();
+
+      const xDist = badgePosition.left - ballPosition.left;
+      const yDist = badgePosition.top - ballPosition.top;
+
+      el.style.transform = `translate(${xDist}px,${yDist}px)`;
+      el.style.transition = "all .5s cubic-bezier(.4,-0.3,1,.68)";
+      done();
+    },
+    afterEnter(el) {
+      this.ballFlag = !this.ballFlag;
+    },
+    getSelectedCount(count) {
+      this.selectedCount = count;
     }
   },
   components: {
@@ -120,7 +143,7 @@ export default {
       margin: 15px 0;
     }
   }
-  .ball{
+  .ball {
     width: 15px;
     height: 15px;
     border-radius: 50%;
