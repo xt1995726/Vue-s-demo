@@ -34,13 +34,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.goodsdesc-container{
-    padding: 4px;
-    h3{
-        font-size: 16px;
-        color: #226aff;
-        text-align: center;
-        margin: 15px 0;
-    }
+.goodsdesc-container {
+  padding: 4px;
+  h3 {
+    font-size: 16px;
+    color: #226aff;
+    text-align: center;
+    margin: 15px 0;
+  }
 }
 </style>
