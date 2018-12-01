@@ -5,10 +5,12 @@ import app from './App.vue'
 import VueRouter from 'vue-router'
 import VueResouce from 'vue-resource'
 import VuePreview from 'vue-preview'
+import Vuex from 'vuex'
 
 Vue.use(VueRouter)
 Vue.use(VueResouce)
 Vue.use(VuePreview)
+Vue.use(Vuex)
 
 import './lib/mui/css/mui.min.css'
 import './lib/mui/css/icons-extra.css'
@@ -33,9 +35,24 @@ Vue.filter('dataFormat', function (dataStr, pattern = 'YYYY-MM-DD HH:mm:ss') {
     return moment(dataStr).format(pattern);
 });
 
+var store = new Vuex.Store({
+    state:{   // this.$store.state.****
+
+    },
+    mutations:{  // this.$store.commit('func.name', 'param')
+
+    },
+    getters:{  //  this.$store.getters.****
+
+    }
+})
+
+
+
 
 var vm = new Vue({
     el: '#app',
     render: c => c(app),
-    router
+    router,
+    store
 })
