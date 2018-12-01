@@ -36,13 +36,26 @@ Vue.filter('dataFormat', function (dataStr, pattern = 'YYYY-MM-DD HH:mm:ss') {
 });
 
 var store = new Vuex.Store({
-    state:{   // this.$store.state.****
-
+    state: {   // this.$store.state.****
+        car: [],
     },
-    mutations:{  // this.$store.commit('func.name', 'param')
+    mutations: {  // this.$store.commit('func.name', 'param')
+        addToCar(state, goodsinfo) {
+            var flag = false;
 
+            state.car.some(item => {
+                if (item.id == goodsinfo.id) {
+                    item.count += parseInt(goodsinfo.count);
+                    flag = true;
+                    return true;
+                }
+            })
+            if (!flag) {
+                state.car.push(goodsinfo);
+            }
+        }
     },
-    getters:{  //  this.$store.getters.****
+    getters: {  //  this.$store.getters.****
 
     }
 })
