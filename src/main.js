@@ -30,7 +30,7 @@ import "mint-ui/lib/style.css";
 import router from "./router.js";
 
 import moment from "moment";
-Vue.filter("dataFormat", function(dataStr, pattern = "YYYY-MM-DD HH:mm:ss") {
+Vue.filter("dataFormat", function (dataStr, pattern = "YYYY-MM-DD HH:mm:ss") {
   return moment(dataStr).format(pattern);
 });
 
@@ -56,8 +56,18 @@ var store = new Vuex.Store({
       if (!flag) {
         state.car.push(goodsinfo);
       }
-      localStorage.setItem('car',JSON.stringify(state.car));
+      localStorage.setItem('car', JSON.stringify(state.car));
+    },
+    updateGoodsInfo(state, goodsinfo) {
+      state.car.some(item => {
+        if (item.price == goodsinfo.id) {
+          item.count = parseInt(goodsinfo.count);
+          return true;
+        }
+      });
+      localStorage.setItem('car', JSON.stringify(state.car));
     }
+
   },
   getters: {
     //  this.$store.getters.****
@@ -67,6 +77,13 @@ var store = new Vuex.Store({
         c += item.count;
       });
       return c;
+    },
+    getGoodsCount(state) {
+      var o = {};
+      state.car.forEach(item => {
+        o[item.price] = item.count;
+      });
+      return o;
     }
   }
 });

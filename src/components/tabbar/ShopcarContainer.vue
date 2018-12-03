@@ -10,8 +10,8 @@
             <div class="info">
               <h1>{{item.title}}</h1>
               <p>
-                <span class="price">${{item.artist_id}}</span>
-                <numbox></numbox>
+                <span class="price">${{item.artist_id.slice(0,4)}}</span>
+                <numbox :initcount="$store.getters.getGoodsCount[item.artist_id]" :goodsid="item.artist_id"></numbox>
                 <a href="#">删除</a>
               </p>
             </div>
@@ -75,7 +75,7 @@ export default {
   .goods-list {
     .mui-card-content-inner {
       display: flex;
-      align-items: center;
+      align-items: space-between;
     }
     img {
       width: 60px;

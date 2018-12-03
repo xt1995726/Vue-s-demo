@@ -5,9 +5,10 @@
       id="test"
       class="mui-input-numbox"
       type="number"
-      value="1"
+      :value="initcount"
       @change="countChanged"
       ref="numbox"
+      readonly
     >
     <button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
   </div>
@@ -22,9 +23,14 @@ export default {
   },
   methods: {
     countChanged() {
-      
+      // console.log(this.$refs.numbox.value);
+      this.$store.commit("updateGoodsInfo", {
+        id: this.goodsid,
+        count: this.$refs.numbox.value
+      });
     },
-  }
+  },
+  props: ['initcount', 'goodsid']
 }
 
 </script>
