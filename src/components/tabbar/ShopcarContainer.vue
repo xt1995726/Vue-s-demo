@@ -12,7 +12,7 @@
               <p>
                 <span class="price">${{item.artist_id.slice(0,4)}}</span>
                 <numbox :initcount="$store.getters.getGoodsCount[item.artist_id]" :goodsid="item.artist_id"></numbox>
-                <a href="#">删除</a>
+                <a href="#" @click.prevent="remove(item.artist_id, index)">删除</a>
               </p>
             </div>
           </div>
@@ -58,6 +58,10 @@ export default {
         });
       });
 
+    },
+    remove(id, index){
+      this.goodlist.splice(index, 1);
+      this.$store.commit('removeFromCar', id);
     }
   },
   components: {
