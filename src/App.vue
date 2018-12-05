@@ -1,7 +1,11 @@
 <template>
   <div class="app-container">
     <!-- top -->
-    <mt-header fixed title="practice app"></mt-header>
+    <mt-header fixed title="practice app">
+      <span slot="left" @click="goBack" v-show="flag">
+        <mt-button icon="back">back</mt-button>
+      </span>
+    </mt-header>
     <!-- mid -->
     <transition>
       <router-view></router-view>
@@ -35,6 +39,31 @@ import mui from './lib/mui/js/mui.min.js';
 
 mui('body').on('tap', 'a', function () { document.location.href = this.href; });
 mui('body').on('click', 'a', function () { document.location.href = this.href; });
+
+export default {
+  data() {
+    return {
+      flag: false,
+    }
+  },
+  created() {
+    this.flag = this.$route.path === '/home' ? false : true;
+  },
+  methods: {
+    goBack() {
+      this.$router.go(-1);
+    }
+  },
+  watch: {
+    '$route.path': function (newVal) {
+      if (newVal === '/home') {
+        this.flag = false;
+      } else {
+        this.flag = true;
+      }
+    }
+  }
+}
 
 </script>
 
